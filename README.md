@@ -1,36 +1,46 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# nextjs-onboarding
 
-## Getting Started
+Next 15 App Router 학습용 repo. Vue/Spring 경력자의 Next.js 온보딩 과제를 이 위에서 진행한다.
 
-First, run the development server:
+## 시작
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+http://localhost:3000 접속.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 과제
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+[docs/curriculum.md](docs/curriculum.md) — 선행 학습 + 과제 10개, 과제별 완료 조건 포함.
 
-## Learn More
+진행 방식:
+- 과제마다 브랜치를 판다: `task/01-routing`, `task/02-boundary`, ...
+- 완료하면 PR을 올리고 리뷰를 받는다.
 
-To learn more about Next.js, take a look at the following resources:
+## 세팅된 것
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| 항목 | 내용 |
+|---|---|
+| Next | 15 (App Router, Turbopack dev) |
+| 언어/스타일 | TypeScript, Tailwind CSS v4 |
+| UI | shadcn/ui (radix base) — `src/components/ui/`는 우리가 소유한 코드 |
+| 서버 상태 | @tanstack/react-query — Provider는 `src/app/providers.tsx` |
+| 테이블 | @tanstack/react-table (설치만 됨, 과제 7에서 사용) |
+| 클라이언트 상태 | zustand (설치만 됨, 과제 5에서 사용) |
+| Mock API | `/api/items` CRUD — 아래 참고 |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Mock API
 
-## Deploy on Vercel
+인메모리 저장소 (`src/lib/db.ts`). 서버 재시작 시 초기화. 모든 응답에 500ms 지연 — 로딩 UI 확인용.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+GET    /api/items?page=1&pageSize=10&sort=price&desc=true   목록 (페이징·정렬)
+POST   /api/items          { name, category, price }        생성
+GET    /api/items/:id                                       단건
+PATCH  /api/items/:id      { name?, category?, price? }     수정
+DELETE /api/items/:id                                       삭제
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+`category`는 `"server" | "client" | "shared"`.
