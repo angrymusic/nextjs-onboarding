@@ -8,7 +8,7 @@
 
 ## 선행 docs (숙지 후 진행)
 
-- [Server and Client Components](https://nextjs.org/docs/app/getting-started/server-and-client-components) ← 이 과제의 전부. 정독
+- [Server and Client Components](https://nextjs.org/docs/app/getting-started/server-and-client-components) ← 전부. 정독
 - [use client 지시어](https://nextjs.org/docs/app/api-reference/directives/use-client)
 
 ## 요구사항
@@ -21,7 +21,7 @@
 
 ### B. 클라이언트 컴포넌트 분리 2건
 
-1. `src/components/copy-id-button.tsx` — 상세 페이지에 "ID 복사" 버튼. `navigator.clipboard` 사용, 복사 후 2초간 "복사됨!" 표시 (`useState`)
+1. `src/components/copy-id-button.tsx` — 상세 페이지에 "ID 복사" 버튼. `navigator.clipboard` 사용, 복사 후 버튼 옆에 2초간 "복사됨!" 표시 (`useState`)
 2. `src/components/detail-tabs.tsx` — 상세 페이지를 탭 2개(정보 / 메모)로. 탭 전환 상태는 client, **탭 내용물은 서버에서 렌더한 것을 `children`(또는 props)으로 전달** ← children 패턴 실습이 핵심
 
 ### C. 의도적 실수 체험 (코드는 남기지 말고 에러 메시지를 PR 설명에 캡처)
@@ -48,12 +48,18 @@
 └────────────────────────────────────┘
 ```
 
+메모는 지금은 아래 참고
+
+```
+<p>메모가 없습니다.</p>
+```
+
 ## 완료 조건
 
 - [ ] `page.tsx` 두 개 모두 `'use client'` 없음 (서버 컴포넌트 유지)
 - [ ] `'use client'` 파일은 정확히 2개 (copy-id-button, detail-tabs)
 - [ ] detail-tabs의 탭 내용이 children으로 전달됨 (탭 컴포넌트 안에서 db 접근 금지)
-- [ ] 각 컴포넌트 파일 최상단에 "왜 server/client인지" 한 줄 주석
+- [ ] 각 컴포넌트 파일 최상단에 "왜 server/client인지" 설명할수가 있다.
 - [ ] PR 설명에 C의 에러 메시지 2건 + 각각 왜 나는지 한 줄 해석
 
 ## 체크 질문
