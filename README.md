@@ -4,12 +4,18 @@ Next 15 App Router 학습용 repo. Vue/Spring 경력자의 Next.js 온보딩 과
 
 ## 시작
 
+**이 repo를 직접 clone하지 말고 fork해서 시작한다.** 과제 PR은 본인 fork에 올린다.
+
 ```bash
-npm install
-npm run dev
+# 1. GitHub에서 Fork 버튼 클릭
+# 2. 본인 fork를 clone
+git clone https://github.com/<본인계정>/nextjs-onboarding.git
+cd nextjs-onboarding
+pnpm install
+pnpm dev
 ```
 
-http://localhost:3000 접속.
+http://localhost:3000 접속. 패키지 매니저는 **pnpm** 사용 (npm/yarn 금지 — lockfile 충돌 방지).
 
 ## 과제
 
@@ -17,7 +23,7 @@ http://localhost:3000 접속.
 
 진행 방식:
 - 과제마다 브랜치를 판다: `task/01-routing`, `task/02-boundary`, ...
-- 완료하면 PR을 올리고 리뷰를 받는다.
+- 완료하면 본인 fork에 PR을 올리고 리뷰어를 지정한다.
 
 ## 세팅된 것
 
