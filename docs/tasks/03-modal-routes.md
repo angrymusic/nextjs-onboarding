@@ -1,4 +1,4 @@
-# 과제 3. 모달 = Parallel + Intercepting Route ★ 고난도 (1~2일)
+# 과제 3. 모달 = Parallel + Intercepting Route
 
 ## 목표
 
@@ -9,7 +9,7 @@
 ## 선행 docs (숙지 후 진행)
 
 - [Parallel Routes](https://nextjs.org/docs/app/api-reference/file-conventions/parallel-routes) ← `default.js` 섹션까지 정독
-- [Intercepting Routes](https://nextjs.org/docs/app/api-reference/file-conventions/intercepting-routes) ← 예제가 정확히 이 과제의 모달 패턴
+- [Intercepting Routes](https://nextjs.org/docs/app/api-reference/file-conventions/intercepting-routes)
 
 ## 요구사항 (3단계, 순서대로 커밋)
 
@@ -25,6 +25,8 @@ src/app/
 - `default.tsx`를 **일부러 빼고** 아무 페이지나 새로고침 → 404 직접 경험 후 추가
 
 ### (b) Intercepting 추가
+
+직접 해보고 아래 구조 참고
 
 ```
 src/app/
@@ -46,6 +48,20 @@ src/app/
 
 - 모달 닫기: 딤 클릭 + [×] 버튼 → `router.back()`
 - 모달 내용은 `db.get(id)`로 실데이터 (풀페이지와 동일 데이터, UI만 축약)
+- 모달 껍데기는 `src/components/ui/modal.tsx` 공용 컴포넌트로 분리: 딤 배경 + 중앙 카드, 딤/[×] 클릭 → `router.back()`, 카드 내부 클릭은 닫히지 않게 (`stopPropagation`). `useRouter`는 반드시 `next/navigation`에서
+- [풀페이지로 보기]는 `<a>` 태그(하드 내비게이션) — `<Link>`면 다시 인터셉트돼서 모달이 또 뜬다
+
+스타일 힌트 (딤/카드 CSS는 과제 범위 아님 — 그대로 가져다 써도 됨):
+
+```tsx
+<div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+  {/* ↑ 딤: 화면 전체 덮기 + 반투명 검정 + 카드 중앙 정렬. 여기에 딤 클릭 닫기 */}
+  <div className="relative w-full max-w-sm rounded-lg bg-white p-6 shadow-lg">
+    {/* ↑ 카드. 여기에 클릭 전파 차단 + [×] 버튼 */}
+    {children}
+  </div>
+</div>
+```
 
 ## 와이어프레임
 
@@ -80,7 +96,6 @@ src/app/
 - [ ] URL 직접 입력 진입 → 풀페이지
 - [ ] 딤/[×] 클릭 → 목록으로 복귀 (히스토리 뒤로)
 - [ ] 모달 뜬 채 About 이동 → 모달 사라짐
-- [ ] PR 설명에 **파일 구조 + 렌더 흐름 그림** (손그림/ASCII 아무거나)
 
 ## 체크 질문
 
