@@ -6,6 +6,12 @@
 
 **Spring 매핑**: 컨트롤러 엔드포인트가 함수로 인라인된 것. import해서 호출하는 것처럼 보여도 **실제 네트워크 요청이 나간다.**
 
+## 선행 docs (숙지 후 진행)
+
+- [Server Actions and Mutations](https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions-and-mutations)
+- [use server 지시어](https://nextjs.org/docs/app/api-reference/directives/use-server)
+- [React — useActionState](https://react.dev/reference/react/useActionState)
+
 ## 요구사항
 
 - `/feedback` 페이지 신설: 이 학습 과정 피드백 폼 (이름 / 내용 textarea)

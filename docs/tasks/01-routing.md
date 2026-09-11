@@ -7,6 +7,16 @@
 
 **Vue 매핑**: 파일 구조 = Vue Router 설정 객체. `layout.tsx` = `<router-view>`를 감싸는 부모 컴포넌트.
 
+## 선행 docs (숙지 후 진행)
+
+과제 시작 전에 아래 공식 문서를 먼저 읽는다. 외우지 말고 개념만 — 과제 중 다시 찾아보면 된다.
+
+- [Layouts and Pages](https://nextjs.org/docs/app/getting-started/layouts-and-pages)
+- [Linking and Navigating](https://nextjs.org/docs/app/getting-started/linking-and-navigating)
+- [Dynamic Routes](https://nextjs.org/docs/app/api-reference/file-conventions/dynamic-routes)
+- [loading.js](https://nextjs.org/docs/app/api-reference/file-conventions/loading)
+- [not-found.js](https://nextjs.org/docs/app/api-reference/file-conventions/not-found) + [notFound()](https://nextjs.org/docs/app/api-reference/functions/not-found)
+
 ## 요구사항
 
 생성할 라우트 3개:

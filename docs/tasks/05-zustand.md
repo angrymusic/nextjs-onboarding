@@ -6,6 +6,10 @@
 
 **Vue 매핑**: Pinia와 거의 1:1. 문법보다 "무엇을 넣고 무엇을 안 넣는가" 경계가 학습 포인트.
 
+## 선행 docs (숙지 후 진행)
+
+- [Zustand 공식 docs — Introduction](https://zustand.docs.pmnd.rs/getting-started/introduction) (사내망에서 안 열리면 [GitHub README](https://github.com/pmndrs/zustand))
+
 ## 요구사항
 
 - `src/stores/item-filter.ts` 생성:

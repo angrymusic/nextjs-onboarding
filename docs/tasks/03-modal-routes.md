@@ -6,6 +6,11 @@
 
 **Vue 매핑**: parallel route ≈ named `<router-view>`. intercepting은 Vue에 대응 개념 없음 — "**소프트 내비게이션일 때만** 라우트를 가로챈다".
 
+## 선행 docs (숙지 후 진행)
+
+- [Parallel Routes](https://nextjs.org/docs/app/api-reference/file-conventions/parallel-routes) ← `default.js` 섹션까지 정독
+- [Intercepting Routes](https://nextjs.org/docs/app/api-reference/file-conventions/intercepting-routes) ← 예제가 정확히 이 과제의 모달 패턴
+
 ## 요구사항 (3단계, 순서대로 커밋)
 
 ### (a) Parallel route

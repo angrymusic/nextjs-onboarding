@@ -8,6 +8,12 @@
 
 **Vue 매핑 (최대 습관 차이)**: Pinia에 API 응답을 넣고 컴포넌트가 store를 읽던 방식 금지. query가 캐시 = 저장소.
 
+## 선행 docs (숙지 후 진행)
+
+- [Quick Start](https://tanstack.com/query/latest/docs/framework/react/quick-start)
+- [Mutations](https://tanstack.com/query/latest/docs/framework/react/guides/mutations)
+- [Query Invalidation](https://tanstack.com/query/latest/docs/framework/react/guides/query-invalidation)
+
 ## 요구사항
 
 ### A. 목록을 useQuery로 전환

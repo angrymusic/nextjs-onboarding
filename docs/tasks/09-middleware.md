@@ -9,6 +9,11 @@
 - 앱당 1개, 체이닝 없음
 - 매칭되는 **모든** 요청에 실행 → 무거운 로직(DB 조회 등) 금지
 
+## 선행 docs (숙지 후 진행)
+
+- [middleware.js](https://nextjs.org/docs/app/api-reference/file-conventions/middleware) ← matcher 섹션까지 정독
+- [cookies()](https://nextjs.org/docs/app/api-reference/functions/cookies)
+
 ## 요구사항
 
 ### A. 가짜 로그인

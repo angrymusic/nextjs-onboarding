@@ -6,6 +6,11 @@
 
 **Vue 매핑**: Vue에는 이 구분이 없다. "이 컴포넌트 코드가 브라우저 번들에 들어가는가?"가 기준이라는 걸 몸으로 익히는 과제.
 
+## 선행 docs (숙지 후 진행)
+
+- [Server and Client Components](https://nextjs.org/docs/app/getting-started/server-and-client-components) ← 이 과제의 전부. 정독
+- [use client 지시어](https://nextjs.org/docs/app/api-reference/directives/use-client)
+
 ## 요구사항
 
 ### A. 서버 컴포넌트에서 데이터 렌더

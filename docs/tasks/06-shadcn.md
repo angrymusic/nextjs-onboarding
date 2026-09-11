@@ -4,6 +4,11 @@
 
 shadcn 소유권 모델 이해: **라이브러리가 아니라 코드 복사기.** `src/components/ui/`는 우리가 소유한 코드고 수정해도 된다.
 
+## 선행 docs (숙지 후 진행)
+
+- [shadcn/ui — Introduction](https://ui.shadcn.com/docs) ← "라이브러리가 아니다" 철학 부분 정독
+- [Dialog 컴포넌트](https://ui.shadcn.com/docs/components/dialog)
+
 ## 요구사항
 
 ### A. 컴포넌트 추가
