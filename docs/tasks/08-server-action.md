@@ -40,12 +40,10 @@
 ## 완료 조건
 
 - [ ] 제출 성공/검증 실패 메시지 표시
-- [ ] 제출 시 DevTools Network 탭에 **POST 요청이 보이는 스크린샷**을 PR에 첨부 ← 핵심 체험
-- [ ] JS 끄고(브라우저 설정) 제출해도 동작하는지 확인해보기 (form action의 progressive enhancement)
+- [ ] 제출 시 DevTools Network 탭에서 POST 요청 확인
 
 ## 체크 질문
 
 1. `submitFeedback`은 어디서 실행되나? 클라이언트에서 import했는데 왜 서버 코드가 안 새나?
-2. 서버 액션 vs API Route(route handler) — 차이와 각각 언제 쓰나? 실무 프로젝트는 왜 거의 route handler + query이고 서버 액션이 한 군데뿐일까?
+2. 서버 액션 vs API Route(route handler) — 차이와 각각 언제 쓰나? 
 3. 서버 액션의 인자/반환값에 아무거나 넘겨도 되나? (직렬화 제약)
-4. 보안 관점에서 서버 액션은 뭐라고 봐야 하나? (공개 엔드포인트 — 검증을 액션 안에서 하는 이유)
