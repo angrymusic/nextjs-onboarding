@@ -56,5 +56,5 @@
 1. middleware는 언제 실행되나? 서버 컴포넌트 렌더보다 앞인가 뒤인가?
 2. Spring Interceptor와 같은 점 / 다른 점?
 3. middleware에서 세션을 DB로 검증하면 왜 안 되나? 그럼 진짜 검증은 어디서?
-4. matcher 없이 두면 어떤 요청까지 middleware를 타는가? (직접 실험했음 — 결과 설명)
-5. `redirect()`와 `NextResponse.redirect()`의 차이는? (서버 컴포넌트용 vs middleware용)
+4. matcher 없이 두면 어떤 요청까지 middleware를 타는가?
+5. `redirect()`와 `NextResponse.redirect()`의 차이는?

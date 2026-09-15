@@ -17,7 +17,7 @@ headless table + **서버 사이드 페이징/정렬** (실무 프로젝트 패�
 
 - `src/components/item-table.tsx` 생성, `useReactTable` 사용
 - 컬럼: ID / 이름 / 카테고리 / 가격(정렬 가능) / 등록일(정렬 가능) / [삭제]
-- `ColumnDef` 배열은 **컴포넌트 밖** 또는 `useMemo` (이유를 질문에서 다룸)
+- `ColumnDef` 배열은 **컴포넌트 밖** 또는 `useMemo`
 - 렌더링은 shadcn 스타일의 `<table>` 직접 마크업 (`pnpm dlx shadcn add table` 사용 가능)
 
 ### B. 서버 페이징 + 정렬
