@@ -6,9 +6,9 @@ headless table + **서버 사이드 페이징/정렬** (실무 프로젝트 패�
 
 ## 선행 docs (숙지 후 진행)
 
-- [TanStack Table — Overview](https://tanstack.com/table/latest/docs/framework/react/overview)
-- [Pagination Guide](https://tanstack.com/table/latest/docs/framework/react/guide/pagination) ← manual(서버) 페이징 섹션
-- [Sorting Guide](https://tanstack.com/table/latest/docs/framework/react/guide/sorting)
+- [TanStack Table — Overview](https://tanstack.com/table/v8/docs/introduction)
+- [Pagination Guide](https://tanstack.com/table/v8/docs/guide/pagination) ← manual(서버) 페이징 섹션
+- [Sorting Guide](https://tanstack.com/table/v8/docs/guide/sorting)
 - [TanStack Query — Paginated Queries](https://tanstack.com/query/latest/docs/framework/react/guides/paginated-queries) ← `keepPreviousData` 여기 나옴
 
 ## 요구사항
