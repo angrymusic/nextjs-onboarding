@@ -8,7 +8,7 @@ type Props = {
   }>;
 };
 
-export default async function itemPage({ params }: Props) {
+export default async function ItemPage({ params }: Props) {
   const { id } = await params;
   const item = ITEMS.find((item) => item.id === Number(id));
 
