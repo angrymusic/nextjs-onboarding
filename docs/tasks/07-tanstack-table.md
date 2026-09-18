@@ -27,10 +27,13 @@ headless table + **서버 사이드 페이징/정렬** (실무 프로젝트 패�
 
 ```ts
 useQuery({
-  queryKey: ['items', { page, pageSize, sort, desc }],
-  queryFn: () => fetch(`/api/items?page=${page}&pageSize=${pageSize}&sort=${sort}&desc=${desc}`).then(r => r.json()),
-  placeholderData: keepPreviousData,   // 페이지 넘길 때 깜빡임 방지 — 있고 없고 비교해볼 것
-})
+  queryKey: ["items", { page, pageSize, sort, desc }],
+  queryFn: () =>
+    fetch(
+      `/api/items?page=${page}&pageSize=${pageSize}&sort=${sort}&desc=${desc}`,
+    ).then((r) => r.json()),
+  placeholderData: keepPreviousData, // 페이지 넘길 때 깜빡임 방지 — 있고 없고 비교해볼 것
+});
 ```
 
 - API가 주는 `total`로 전체 페이지 수 계산, 하단 페이지네이션 (이전/다음 + 페이지 표시)
