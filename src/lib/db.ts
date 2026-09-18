@@ -22,7 +22,12 @@ const items: Item[] = Array.from({ length: 20 }, (_, i) => ({
 export const delay = (ms = 500) => new Promise((r) => setTimeout(r, ms));
 
 export const db = {
-  list(opts?: { page?: number; pageSize?: number; sort?: keyof Item; desc?: boolean }) {
+  list(opts?: {
+    page?: number;
+    pageSize?: number;
+    sort?: keyof Item;
+    desc?: boolean;
+  }) {
     const { page = 1, pageSize = 10, sort, desc = false } = opts ?? {};
     const rows = [...items];
     if (sort) {
@@ -41,7 +46,11 @@ export const db = {
     return items.find((i) => i.id === id) ?? null;
   },
   create(data: Pick<Item, "name" | "category" | "price">) {
-    const item: Item = { id: seq++, createdAt: new Date().toISOString(), ...data };
+    const item: Item = {
+      id: seq++,
+      createdAt: new Date().toISOString(),
+      ...data,
+    };
     items.unshift(item);
     return item;
   },

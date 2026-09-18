@@ -39,5 +39,5 @@
 ## 체크 질문
 
 1. `submitFeedback`은 어디서 실행되나? 클라이언트에서 import했는데 왜 서버 코드가 안 새나?
-2. 서버 액션 vs API Route(route handler) — 차이와 각각 언제 쓰나? 
+2. 서버 액션 vs API Route(route handler) — 차이와 각각 언제 쓰나?
 3. 서버 액션의 인자/반환값에 아무거나 넘겨도 되나? (직렬화 제약)

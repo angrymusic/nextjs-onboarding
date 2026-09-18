@@ -19,7 +19,10 @@ export async function POST(req: NextRequest) {
   await delay();
   const body = await req.json();
   if (!body?.name || !body?.category || typeof body?.price !== "number") {
-    return NextResponse.json({ error: "name, category, price 필수" }, { status: 400 });
+    return NextResponse.json(
+      { error: "name, category, price 필수" },
+      { status: 400 },
+    );
   }
   return NextResponse.json(db.create(body), { status: 201 });
 }
