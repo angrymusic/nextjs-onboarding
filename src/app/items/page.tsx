@@ -1,7 +1,11 @@
-import { ITEMS } from "@/constants/items";
+import { db, delay } from "@/lib/db";
 import Link from "next/link";
 
-export default function ItemsPage() {
+export default async function ItemsPage() {
+  // 로딩 페이지 확인 완료.
+  // await delay(1000);
+  const { rows } = db.list();
+
   return (
     <div
       style={{
@@ -16,7 +20,7 @@ export default function ItemsPage() {
           gap: "10px",
         }}
       >
-        {ITEMS.map((item) => {
+        {rows.map((item) => {
           return (
             <Link key={item.id} href={`/items/${item.id}`}>
               <li style={{ display: "flex", gap: "10px" }}>

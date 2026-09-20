@@ -1,4 +1,4 @@
-import { ITEMS } from "@/constants/items";
+import { db } from "@/lib/db";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
@@ -10,8 +10,8 @@ type Props = {
 
 export default async function ItemPage({ params }: Props) {
   const { id } = await params;
-  const item = ITEMS.find((item) => item.id === Number(id));
-
+  const item = db.get(Number(id));
+  
   if (!item) {
     notFound();
   }
