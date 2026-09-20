@@ -1,3 +1,6 @@
+import CopyIdButton from "@/app/components/common/copy-id-button";
+import DetailTabs from "@/app/components/common/detail-tabs";
+import Info from "@/app/components/items/info";
 import { db } from "@/lib/db";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -11,7 +14,7 @@ type Props = {
 export default async function ItemPage({ params }: Props) {
   const { id } = await params;
   const item = db.get(Number(id));
-  
+
   if (!item) {
     notFound();
   }
@@ -26,15 +29,11 @@ export default async function ItemPage({ params }: Props) {
       <div style={{ marginBottom: "12px" }}>
         <Link href={"/items"}>← 목록으로</Link>
       </div>
-      <div>{item?.name}</div>
-      <div>
-        <span>카테고리: </span>
-        {item?.category}
-      </div>
-      <div>
-        <span>가격: </span>
-        {item?.price}
-      </div>
+      <CopyIdButton id={id} />
+      <DetailTabs>
+        <Info item={item} />
+        <p>메모가 없습니다.</p>
+      </DetailTabs>
     </div>
   );
 }
