@@ -18,8 +18,8 @@ export default function ItemsPage() {
       >
         {ITEMS.map((item) => {
           return (
-            <Link href={`/items/${item.id}`}>
-              <li key={item.id} style={{ display: "flex", gap: "10px" }}>
+            <Link key={item.id} href={`/items/${item.id}`}>
+              <li style={{ display: "flex", gap: "10px" }}>
                 <span>{item.name}</span>
                 <span>{item.category}</span>
                 <span>{item.price}원</span>
