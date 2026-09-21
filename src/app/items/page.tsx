@@ -13,14 +13,14 @@ export default async function ItemsPage() {
       <ul className="flex flex-col gap-2.5">
         {rows.map((item) => {
           return (
-            <Link key={item.id} href={`/items/${item.id}`}>
-              <li className="flex gap-2.5">
+            <li key={item.id}>
+              <Link href={`/items/${item.id}`} className="flex gap-2.5">
                 <span>{item.name}</span>
                 <span>{item.category}</span>
                 <span>{formatNumber(item.price)}원</span>
                 <span> → </span>
-              </li>
-            </Link>
+              </Link>
+            </li>
           );
         })}
       </ul>
