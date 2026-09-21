@@ -12,11 +12,11 @@ export default function CopyIdButton({ id }: CopyIdButtonProps) {
   async function handleClick() {
     await navigator.clipboard.writeText(String(id));
     setIsCopied(true);
-  }
 
-  setTimeout(() => {
-    setIsCopied(false);
-  }, 2000);
+    setTimeout(() => {
+      setIsCopied(false);
+    }, 2000);
+  }
 
   return (
     <div>
