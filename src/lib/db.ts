@@ -1,3 +1,4 @@
+import "server-only";
 // 과제용 인메모리 mock DB.
 // 서버 재시작 시 초기화된다 — 과제 목적상 그걸로 충분.
 export type Item = {

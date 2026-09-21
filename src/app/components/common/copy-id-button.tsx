@@ -12,21 +12,18 @@ export default function CopyIdButton({ id }: CopyIdButtonProps) {
   async function handleClick() {
     await navigator.clipboard.writeText(String(id));
     setIsCopied(true);
-  }
 
-  setTimeout(() => {
-    setIsCopied(false);
-  }, 2000);
+    setTimeout(() => {
+      setIsCopied(false);
+    }, 2000);
+  }
 
   return (
     <div>
-      <button
-        onClick={handleClick}
-        style={{ border: "1px solid", padding: "5px" }}
-      >
+      <button onClick={handleClick} className="border border-black px-1.5 py-1">
         ID 복사
       </button>
-      {isCopied && <span style={{ marginLeft: "10px" }}>복사됨!</span>}
+      {isCopied && <span className="ml-2">복사됨!</span>}
     </div>
   );
 }

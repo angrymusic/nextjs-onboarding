@@ -1,4 +1,5 @@
 import { db, delay } from "@/lib/db";
+import { formatNumber } from "@/lib/utils";
 import Link from "next/link";
 
 export default async function ItemsPage() {
@@ -7,29 +8,19 @@ export default async function ItemsPage() {
   const { rows } = db.list();
 
   return (
-    <div
-      style={{
-        marginLeft: "10px",
-      }}
-    >
-      <h1 style={{ paddingBottom: "12px" }}>아이템 목록</h1>
-      <ul
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "10px",
-        }}
-      >
+    <div className="ml-2.5">
+      <h1 className="pb-2.5">아이템 목록</h1>
+      <ul className="flex flex-col gap-2.5">
         {rows.map((item) => {
           return (
-            <Link key={item.id} href={`/items/${item.id}`}>
-              <li style={{ display: "flex", gap: "10px" }}>
+            <li key={item.id}>
+              <Link href={`/items/${item.id}`} className="flex gap-2.5">
                 <span>{item.name}</span>
                 <span>{item.category}</span>
-                <span>{item.price}원</span>
+                <span>{formatNumber(item.price)}원</span>
                 <span> → </span>
-              </li>
-            </Link>
+              </Link>
+            </li>
           );
         })}
       </ul>

@@ -10,16 +10,16 @@ export default function DetailTabs({ children }: DetailTabsProps) {
   const [activeTab, setActiveTab] = useState<"info" | "memo">("info");
   const [info, memo] = Children.toArray(children);
   return (
-    <div>
-      <div style={{ display: "flex", gap: "10px" }}>
+    <div className="border px-2 py-1">
+      <div>
         <button
-          style={{ border: "1px solid", padding: "5px" }}
+          className="border px-2 py-1"
           onClick={() => setActiveTab("info")}
         >
           정보
         </button>
         <button
-          style={{ border: "1px solid", padding: "5px" }}
+          className="border px-2 py-1"
           onClick={() => setActiveTab("memo")}
         >
           메모
