@@ -1,5 +1,5 @@
 import Modal from "@/app/components/common/modal";
-import Info from "@/app/components/items/info";
+import InfoSummary from "@/app/components/items/info-summary";
 import { db } from "@/lib/db";
 import { notFound } from "next/navigation";
 
@@ -19,7 +19,7 @@ export default async function ItemDetailModal({ params }: Props) {
 
   return (
     <Modal>
-      <Info item={item} />
+      <InfoSummary item={item} />
       <a href={`/items/${id}`} rel="noopener noreferrer">
         [풀페이지로 보기]
       </a>
