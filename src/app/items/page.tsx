@@ -1,4 +1,5 @@
 import { db, delay } from "@/lib/db";
+import { formatNumber } from "@/lib/utils";
 import Link from "next/link";
 
 export default async function ItemsPage() {
@@ -16,7 +17,7 @@ export default async function ItemsPage() {
               <li className="flex gap-2.5">
                 <span>{item.name}</span>
                 <span>{item.category}</span>
-                <span>{item.price}원</span>
+                <span>{formatNumber(item.price)}원</span>
                 <span> → </span>
               </li>
             </Link>

@@ -23,7 +23,10 @@ export default async function ItemPage({ params }: Props) {
       <div className="mb-2.5">
         <Link href={"/items"}>← 목록으로</Link>
       </div>
-      <CopyIdButton id={id} />
+      <div className="flex gap-1 items-center">
+        <div>{item?.name}</div>
+        <CopyIdButton id={id} />
+      </div>
       <DetailTabs>
         <Info item={item} />
         <p>메모가 없습니다.</p>
