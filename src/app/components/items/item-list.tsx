@@ -1,14 +1,8 @@
 "use client";
 import type { Item } from "@/lib/db";
 import { formatNumber } from "@/lib/utils";
-import {
-  QueryClient,
-  useMutation,
-  useQuery,
-  useQueryClient,
-} from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
-import CreateItemForm from "./create-item-form";
 
 type ItemsResponse = {
   rows: Item[];
@@ -63,7 +57,6 @@ export default function ItemList() {
   }
   return (
     <div>
-      <CreateItemForm />
       <span className="pb-2.5">아이템 목록 </span>
       {deleteMutation.isPending && <span>(삭제중...)</span>}
 
