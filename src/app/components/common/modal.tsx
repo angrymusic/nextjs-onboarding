@@ -15,7 +15,7 @@ export default function Modal({ children }: { children: React.ReactNode }) {
       {/* ↑ 딤: 화면 전체 덮기 + 반투명 검정 + 카드 중앙 정렬. 여기에 딤 클릭 닫기 */}
       <div
         className="relative w-full max-w-sm rounded-lg bg-white p-6 shadow-lg"
-        onClick={(e) => e.stopPropagation}
+        onClick={(e) => e.stopPropagation()}
       >
         <button
           type="button"
