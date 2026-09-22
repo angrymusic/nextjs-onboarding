@@ -64,26 +64,28 @@ export default function ItemList() {
   return (
     <div>
       <CreateItemForm />
-      <h1 className="pb-2.5">아이템 목록</h1>
+      <span className="pb-2.5">아이템 목록 </span>
+      {deleteMutation.isPending && <span>(삭제중...)</span>}
+
       <ul className="flex flex-col gap-2.5">
         {data.rows.map((item) => {
           return (
-            <li key={item.id}>
+            <li key={item.id} className="flex gap-2.5">
               <Link href={`/items/${item.id}`} className="flex gap-2.5">
                 <span>{item.name}</span>
                 <span>{item.category}</span>
                 <span>{formatNumber(item.price)}원</span>
-                <button
-                  type="button"
-                  onClick={(e) => {
-                    deleteMutation.mutate(item.id);
-                    e.stopPropagation();
-                    e.preventDefault();
-                  }}
-                  disabled={deleteMutation.isPending}
-                >
-                  [삭제]
-                </button>
+              </Link>
+              <button
+                type="button"
+                onClick={(e) => {
+                  deleteMutation.mutate(item.id);
+                }}
+                disabled={deleteMutation.isPending}
+              >
+                [삭제]
+              </button>
+              <Link href={`/items/${item.id}`} className="flex gap-2.5">
                 <span> → </span>
               </Link>
             </li>
