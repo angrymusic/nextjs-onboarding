@@ -1,7 +1,12 @@
 "use client";
 import type { Item } from "@/lib/db";
 import { formatNumber } from "@/lib/utils";
-import { useQuery } from "@tanstack/react-query";
+import {
+  QueryClient,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 import Link from "next/link";
 import CreateItemForm from "./create-item-form";
 
@@ -10,6 +15,7 @@ type ItemsResponse = {
 };
 
 export default function ItemList() {
+  const queryClient = useQueryClient();
   const { data, isPending, isError, refetch } = useQuery<ItemsResponse>({
     queryKey: ["items", { page: 1, pageSize: 10 }],
     queryFn: async () => {
@@ -20,6 +26,25 @@ export default function ItemList() {
       }
 
       return response.json();
+    },
+  });
+
+  async function deleteItem(id: number) {
+    const response = await fetch(`/api/items/${id}`, {
+      method: "DELETE",
+    });
+
+    if (!response.ok) {
+      throw new Error("아이템을 삭제하지 못했습니다.");
+    }
+  }
+
+  const deleteMutation = useMutation({
+    mutationFn: deleteItem,
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
+        queryKey: ["items"],
+      });
     },
   });
 
@@ -48,6 +73,17 @@ export default function ItemList() {
                 <span>{item.name}</span>
                 <span>{item.category}</span>
                 <span>{formatNumber(item.price)}원</span>
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    deleteMutation.mutate(item.id);
+                    e.stopPropagation();
+                    e.preventDefault();
+                  }}
+                  disabled={deleteMutation.isPending}
+                >
+                  [삭제]
+                </button>
                 <span> → </span>
               </Link>
             </li>
