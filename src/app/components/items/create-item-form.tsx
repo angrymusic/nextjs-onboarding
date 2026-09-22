@@ -1,11 +1,12 @@
 "use client";
 
+import { Item } from "@/lib/db";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { SubmitEventHandler, useState } from "react";
 
 type CreateItemRequest = {
   name: string;
-  category: string;
+  category: Item["category"];
   price: number;
 };
 
@@ -29,7 +30,7 @@ export default function CreateItemForm() {
   const queryClient = useQueryClient();
 
   const [name, setName] = useState("");
-  const [category, setCategory] = useState("server");
+  const [category, setCategory] = useState<Item["category"]>("server");
   const [price, setPrice] = useState("");
 
   const createMutation = useMutation({
@@ -80,11 +81,14 @@ export default function CreateItemForm() {
 
           <select
             value={category}
-            onChange={(event) => setCategory(event.target.value)}
+            onChange={(event) =>
+              setCategory(event.target.value as Item["category"])
+            }
             className="rounded border px-2.5 py-1.5"
           >
             <option value="server">server</option>
             <option value="client">client</option>
+            <option value="shared">shared</option>
           </select>
         </label>
 
