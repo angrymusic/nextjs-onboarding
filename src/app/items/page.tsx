@@ -1,29 +1,11 @@
-import { db, delay } from "@/lib/db";
-import { formatNumber } from "@/lib/utils";
-import Link from "next/link";
+import CreateItemForm from "../components/items/create-item-form";
+import ItemList from "../components/items/item-list";
 
-export default async function ItemsPage() {
-  // 로딩 페이지 확인 완료.
-  // await delay(1000);
-  const { rows } = db.list();
-
+export default function ItemsPage() {
   return (
     <div className="ml-2.5">
-      <h1 className="pb-2.5">아이템 목록</h1>
-      <ul className="flex flex-col gap-2.5">
-        {rows.map((item) => {
-          return (
-            <li key={item.id}>
-              <Link href={`/items/${item.id}`} className="flex gap-2.5">
-                <span>{item.name}</span>
-                <span>{item.category}</span>
-                <span>{formatNumber(item.price)}원</span>
-                <span> → </span>
-              </Link>
-            </li>
-          );
-        })}
-      </ul>
+      <CreateItemForm />
+      <ItemList />
     </div>
   );
 }
