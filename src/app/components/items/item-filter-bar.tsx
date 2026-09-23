@@ -1,3 +1,5 @@
+"use client";
+
 import { ItemFilterState, useItemFilter } from "@/stores/item-filter";
 
 const categories: ItemFilterState["category"][] = [
