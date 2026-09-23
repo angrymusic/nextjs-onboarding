@@ -1,20 +1,19 @@
 "use client";
 import type { Item } from "@/lib/db";
 import { formatNumber } from "@/lib/utils";
-import { ItemFilterState } from "@/stores/item-filter";
+import { ItemFilterState, useItemFilter } from "@/stores/item-filter";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
 
 type ItemsResponse = {
   rows: Item[];
 };
-type ItemListProps = {
-  category: ItemFilterState["category"];
-  keyword: string;
-};
 
-export default function ItemList({ category, keyword }: ItemListProps) {
+export default function ItemList() {
   const queryClient = useQueryClient();
+
+  const category = useItemFilter((state) => state.category);
+  const keyword = useItemFilter((state) => state.keyword);
   const { data, isPending, isError, refetch } = useQuery<ItemsResponse>({
     queryKey: ["items", { page: 1, pageSize: 10 }],
     queryFn: async () => {
