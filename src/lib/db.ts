@@ -9,15 +9,27 @@ export type Item = {
   createdAt: string;
 };
 
-let seq = 21;
+type DbState = {
+  seq: number;
+  items: Item[];
+};
 
-const items: Item[] = Array.from({ length: 20 }, (_, i) => ({
-  id: i + 1,
-  name: `아이템 ${i + 1}`,
-  category: (["server", "client", "shared"] as const)[i % 3],
-  price: (i + 1) * 1000,
-  createdAt: new Date(Date.now() - i * 86400_000).toISOString(),
-}));
+const globalDb = globalThis as typeof globalThis & {
+  __nextjsOnboardingDb?: DbState;
+};
+
+const dbState = (globalDb.__nextjsOnboardingDb ??= {
+  seq: 21,
+  items: Array.from({ length: 20 }, (_, i) => ({
+    id: i + 1,
+    name: `아이템 ${i + 1}`,
+    category: (["server", "client", "shared"] as const)[i % 3],
+    price: (i + 1) * 1000,
+    createdAt: new Date(Date.now() - i * 86400_000).toISOString(),
+  })),
+});
+
+const { items } = dbState;
 
 // 로딩/에러 상태 UI를 눈으로 확인할 수 있게 인위적 지연
 export const delay = (ms = 500) => new Promise((r) => setTimeout(r, ms));
@@ -48,7 +60,7 @@ export const db = {
   },
   create(data: Pick<Item, "name" | "category" | "price">) {
     const item: Item = {
-      id: seq++,
+      id: dbState.seq++,
       createdAt: new Date().toISOString(),
       ...data,
     };

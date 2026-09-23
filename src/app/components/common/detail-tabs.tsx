@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import { Children, ReactNode, useState } from "react";
 
 type DetailTabsProps = {
@@ -12,18 +13,18 @@ export default function DetailTabs({ children }: DetailTabsProps) {
   return (
     <div className="border px-2 py-1">
       <div>
-        <button
+        <Button
           className="border px-2 py-1"
           onClick={() => setActiveTab("info")}
         >
           정보
-        </button>
-        <button
+        </Button>
+        <Button
           className="border px-2 py-1"
           onClick={() => setActiveTab("memo")}
         >
           메모
-        </button>
+        </Button>
       </div>
       <div>{activeTab === "info" ? info : memo}</div>
     </div>

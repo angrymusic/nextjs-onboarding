@@ -1,5 +1,15 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { Item } from "@/lib/db";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { SubmitEventHandler, useState } from "react";
@@ -26,7 +36,12 @@ async function createItem(item: CreateItemRequest) {
   return response.json();
 }
 
-export default function CreateItemForm() {
+type CreateItemFormProps = {
+  onSuccess?: () => void;
+  onCancel?: () => void;
+};
+
+export default function CreateItemForm({ onSuccess, onCancel }: CreateItemFormProps) {
   const queryClient = useQueryClient();
 
   const [name, setName] = useState("");
@@ -43,6 +58,7 @@ export default function CreateItemForm() {
       setName("");
       setCategory("server");
       setPrice("");
+      onSuccess?.();
     },
   });
 
@@ -58,61 +74,75 @@ export default function CreateItemForm() {
 
   return (
     <section className="mb-6">
-      <h5>새 아이템</h5>
-      <form
-        className="flex flex-wrap items-end gap-2.5"
-        onSubmit={handleSubmit}
-      >
-        <label className="flex flex-col gap-1">
-          <span className="text-sm">이름</span>
+      <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+        <div className="grid grid-cols-[80px_1fr] items-center gap-3">
+          <Label htmlFor="name">이름</Label>
 
-          <input
+          <Input
+            id="name"
             type="text"
             value={name}
             onChange={(event) => setName(event.target.value)}
-            className="rounded border px-2.5 py-1.5"
             placeholder="아이템 이름"
             required
           />
-        </label>
+        </div>
 
-        <label className="flex flex-col gap-1">
-          <span className="text-sm">카테고리</span>
+        <div className="grid grid-cols-[80px_1fr] items-center gap-3">
+          <Label htmlFor="category">카테고리</Label>
 
-          <select
+          <Select
             value={category}
-            onChange={(event) =>
-              setCategory(event.target.value as Item["category"])
-            }
-            className="rounded border px-2.5 py-1.5"
+            onValueChange={(value) => setCategory(value as Item["category"])}
           >
-            <option value="server">server</option>
-            <option value="client">client</option>
-            <option value="shared">shared</option>
-          </select>
-        </label>
+            <SelectTrigger id="category" className="w-full">
+              <SelectValue placeholder="카테고리 선택" />
+            </SelectTrigger>
 
-        <label className="flex flex-col gap-1">
-          <span className="text-sm">가격</span>
+            <SelectContent>
+              <SelectItem value="server">server</SelectItem>
+              <SelectItem value="client">client</SelectItem>
+              <SelectItem value="shared">shared</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
 
-          <input
+        <div className="grid grid-cols-[80px_1fr] items-center gap-3">
+          <Label htmlFor="price">가격</Label>
+
+          <Input
+            id="price"
             type="number"
             value={price}
             onChange={(event) => setPrice(event.target.value)}
-            className="rounded border px-2.5 py-1.5"
             placeholder="가격"
             min="0"
             required
           />
-        </label>
+        </div>
 
-        <button
-          type="submit"
-          disabled={createMutation.isPending}
-          className="rounded bg-blue-600 px-4 py-1.5 text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-gray-400"
-        >
-          {createMutation.isPending ? "추가 중..." : "추가"}
-        </button>
+        {createMutation.isError && (
+          <p className="text-sm text-red-600">{createMutation.error.message}</p>
+        )}
+
+        <div className="flex justify-end gap-2 pt-2">
+          <Button
+            type="button"
+            variant="outline"
+            onClick={onCancel}
+            disabled={createMutation.isPending}
+          >
+            취소
+          </Button>
+
+          <Button
+            type="submit"
+            variant="brand"
+            disabled={createMutation.isPending}
+          >
+            {createMutation.isPending ? "추가 중..." : "추가"}
+          </Button>
+        </div>
       </form>
 
       {createMutation.isError && (
