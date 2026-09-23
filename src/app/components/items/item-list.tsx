@@ -1,6 +1,7 @@
 "use client";
 import type { Item } from "@/lib/db";
 import { formatNumber } from "@/lib/utils";
+import { ItemFilterState, useItemFilter } from "@/stores/item-filter";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
 
@@ -10,6 +11,9 @@ type ItemsResponse = {
 
 export default function ItemList() {
   const queryClient = useQueryClient();
+
+  const category = useItemFilter((state) => state.category);
+  const keyword = useItemFilter((state) => state.keyword);
   const { data, isPending, isError, refetch } = useQuery<ItemsResponse>({
     queryKey: ["items", { page: 1, pageSize: 10 }],
     queryFn: async () => {
@@ -21,6 +25,16 @@ export default function ItemList() {
 
       return response.json();
     },
+  });
+
+  const normalizedKeyword = keyword.trim().toLowerCase();
+
+  const filteredRows = data?.rows.filter((item) => {
+    const matchesCategory = category === "all" || item.category === category;
+
+    const matchesKeyword = item.name.toLowerCase().includes(normalizedKeyword);
+
+    return matchesCategory && matchesKeyword;
   });
 
   async function deleteItem(id: number) {
@@ -61,7 +75,7 @@ export default function ItemList() {
       {deleteMutation.isPending && <span>(삭제중...)</span>}
 
       <ul className="flex flex-col gap-2.5">
-        {data.rows.map((item) => {
+        {filteredRows?.map((item) => {
           return (
             <li key={item.id} className="flex gap-2.5">
               <Link href={`/items/${item.id}`} className="flex gap-2.5">
