@@ -1,9 +1,11 @@
 "use client";
+import { Button } from "@/components/ui/button";
 import type { Item } from "@/lib/db";
 import { formatNumber } from "@/lib/utils";
-import { ItemFilterState, useItemFilter } from "@/stores/item-filter";
+import { useItemFilter } from "@/stores/item-filter";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
+import CreateItemDialog from "./create-item-dialog";
 
 type ItemsResponse = {
   rows: Item[];
@@ -63,16 +65,19 @@ export default function ItemList() {
     return (
       <div>
         <p>불러오기 실패</p>
-        <button type="button" onClick={() => refetch()}>
+        <Button type="button" onClick={() => refetch()}>
           재시도
-        </button>
+        </Button>
       </div>
     );
   }
   return (
     <div>
-      <span className="pb-2.5">아이템 목록 </span>
-      {deleteMutation.isPending && <span>(삭제중...)</span>}
+      <div className="flex items-center gap-2.5 pb-2.5">
+        <span className="pb-2.5">아이템 목록 </span>
+        {deleteMutation.isPending && <span>(삭제중...)</span>}
+        <CreateItemDialog />
+      </div>
 
       <ul className="flex flex-col gap-2.5">
         {filteredRows?.map((item) => {
@@ -83,7 +88,7 @@ export default function ItemList() {
                 <span>{item.category}</span>
                 <span>{formatNumber(item.price)}원</span>
               </Link>
-              <button
+              <Button
                 type="button"
                 onClick={(e) => {
                   deleteMutation.mutate(item.id);
@@ -91,7 +96,7 @@ export default function ItemList() {
                 disabled={deleteMutation.isPending}
               >
                 [삭제]
-              </button>
+              </Button>
               <Link href={`/items/${item.id}`} className="flex gap-2.5">
                 <span> → </span>
               </Link>

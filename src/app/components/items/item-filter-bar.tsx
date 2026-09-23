@@ -1,5 +1,7 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { ItemFilterState, useItemFilter } from "@/stores/item-filter";
 
 const categories: ItemFilterState["category"][] = [
@@ -17,16 +19,9 @@ function ItemCategoryTabs() {
       {categories.map((item) => {
         const isActive = category === item;
         return (
-          <button
-            key={item}
-            type="button"
-            onClick={() => setCategory(item)}
-            className={`rounded border px-2.5 py-1.5 ${
-              isActive ? "bg-black text-white" : "bg-white text-black"
-            }`}
-          >
+          <Button key={item} type="button" onClick={() => setCategory(item)}>
             {item === "all" ? "전체" : item}
-          </button>
+          </Button>
         );
       })}
     </div>
@@ -36,7 +31,7 @@ function ItemKeywordInput() {
   const keyword = useItemFilter((state) => state.keyword);
   const setKeyword = useItemFilter((state) => state.setKeyword);
   return (
-    <input
+    <Input
       type="search"
       value={keyword}
       onChange={(event) => {
