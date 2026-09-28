@@ -6,6 +6,7 @@ export default function ItemsPage() {
   return (
     <div className="ml-2.5">
       <ItemFilterBar />
+      <CreateItemDialog />
       <ItemList />
     </div>
   );

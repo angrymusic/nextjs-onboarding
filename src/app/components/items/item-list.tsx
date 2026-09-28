@@ -5,7 +5,6 @@ import { formatNumber } from "@/lib/utils";
 import { useItemFilter } from "@/stores/item-filter";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Link from "next/link";
-import CreateItemDialog from "./create-item-dialog";
 
 type ItemsResponse = {
   rows: Item[];
@@ -76,7 +75,6 @@ export default function ItemList() {
       <div className="flex items-center gap-2.5 pb-2.5">
         <span className="pb-2.5">아이템 목록 </span>
         {deleteMutation.isPending && <span>(삭제중...)</span>}
-        <CreateItemDialog />
       </div>
 
       <ul className="flex flex-col gap-2.5">
