@@ -88,6 +88,8 @@ export default function ItemList() {
               </Link>
               <Button
                 type="button"
+                variant="destructive"
+                size="sm"
                 onClick={(e) => {
                   deleteMutation.mutate(item.id);
                 }}
