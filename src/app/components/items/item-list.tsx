@@ -11,7 +11,6 @@ import {
 } from "@tanstack/react-query";
 import type { PaginationState, SortingState } from "@tanstack/react-table";
 import { useEffect, useState } from "react";
-import CreateItemDialog from "./create-item-dialog";
 
 type ItemsResponse = {
   rows: Item[];
@@ -68,6 +67,17 @@ export default function ItemList() {
     placeholderData: keepPreviousData,
   });
 
+  useEffect(() => {
+    const pageCount = Math.ceil((data?.total ?? 0) / pagination.pageSize);
+    const lastPageIndex = Math.max(0, pageCount - 1);
+
+    setPagination((current) =>
+      current.pageIndex > lastPageIndex
+        ? { ...current, pageIndex: lastPageIndex }
+        : current,
+    );
+  }, [data?.total, pagination.pageSize]);
+
   const normalizedKeyword = keyword.trim().toLowerCase();
 
   const filteredRows = data?.rows.filter((item) => {
@@ -113,7 +123,6 @@ export default function ItemList() {
       <div className="flex items-center gap-2.5 pb-2.5">
         <span className="pb-2.5">아이템 목록 </span>
         {deleteMutation.isPending && <span>(삭제중...)</span>}
-        <CreateItemDialog />
       </div>
 
       <ItemTable
