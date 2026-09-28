@@ -10,7 +10,7 @@ import {
   useQueryClient,
 } from "@tanstack/react-query";
 import type { PaginationState, SortingState } from "@tanstack/react-table";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CreateItemDialog from "./create-item-dialog";
 
 type ItemsResponse = {
@@ -30,6 +30,12 @@ export default function ItemList() {
 
   const category = useItemFilter((state) => state.category);
   const keyword = useItemFilter((state) => state.keyword);
+  useEffect(() => {
+    setPagination((current) =>
+      current.pageIndex === 0 ? current : { ...current, pageIndex: 0 },
+    );
+  }, [category]);
+
   const sort = sorting[0]?.id;
   const desc = sorting[0]?.desc ?? false;
   const { data, isPending, isError, refetch } = useQuery<ItemsResponse>({
@@ -40,6 +46,7 @@ export default function ItemList() {
         pageSize: pagination.pageSize,
         sort,
         desc,
+        category,
       },
     ],
     queryFn: async () => {
@@ -47,6 +54,7 @@ export default function ItemList() {
         page: String(pagination.pageIndex + 1),
         pageSize: String(pagination.pageSize),
         desc: String(desc),
+        category,
       });
       if (sort) params.set("sort", sort);
       const response = await fetch(`/api/items?${params}`);
@@ -63,11 +71,9 @@ export default function ItemList() {
   const normalizedKeyword = keyword.trim().toLowerCase();
 
   const filteredRows = data?.rows.filter((item) => {
-    const matchesCategory = category === "all" || item.category === category;
-
     const matchesKeyword = item.name.toLowerCase().includes(normalizedKeyword);
 
-    return matchesCategory && matchesKeyword;
+    return matchesKeyword;
   });
 
   async function deleteItem(id: number) {

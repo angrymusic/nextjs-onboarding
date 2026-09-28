@@ -10,6 +10,7 @@ export async function GET(req: NextRequest) {
     pageSize: Number(sp.get("pageSize") ?? 10),
     sort: (sp.get("sort") as keyof Item) ?? undefined,
     desc: sp.get("desc") === "true",
+    category: (sp.get("category") as Item["category"] | "all") ?? "all",
   });
   return NextResponse.json(result);
 }
