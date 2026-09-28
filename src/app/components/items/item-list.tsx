@@ -1,25 +1,55 @@
 "use client";
 import { Button } from "@/components/ui/button";
+import ItemTable from "@/components/item-table";
 import type { Item } from "@/lib/db";
-import { formatNumber } from "@/lib/utils";
 import { useItemFilter } from "@/stores/item-filter";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import Link from "next/link";
+import {
+  keepPreviousData,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
+import type { PaginationState, SortingState } from "@tanstack/react-table";
+import { useState } from "react";
 import CreateItemDialog from "./create-item-dialog";
 
 type ItemsResponse = {
   rows: Item[];
+  total: number;
+  page: number;
+  pageSize: number;
 };
 
 export default function ItemList() {
   const queryClient = useQueryClient();
+  const [pagination, setPagination] = useState<PaginationState>({
+    pageIndex: 0,
+    pageSize: 10,
+  });
+  const [sorting, setSorting] = useState<SortingState>([]);
 
   const category = useItemFilter((state) => state.category);
   const keyword = useItemFilter((state) => state.keyword);
+  const sort = sorting[0]?.id;
+  const desc = sorting[0]?.desc ?? false;
   const { data, isPending, isError, refetch } = useQuery<ItemsResponse>({
-    queryKey: ["items", { page: 1, pageSize: 10 }],
+    queryKey: [
+      "items",
+      {
+        page: pagination.pageIndex + 1,
+        pageSize: pagination.pageSize,
+        sort,
+        desc,
+      },
+    ],
     queryFn: async () => {
-      const response = await fetch("/api/items?page=1&pageSize=10");
+      const params = new URLSearchParams({
+        page: String(pagination.pageIndex + 1),
+        pageSize: String(pagination.pageSize),
+        desc: String(desc),
+      });
+      if (sort) params.set("sort", sort);
+      const response = await fetch(`/api/items?${params}`);
 
       if (!response.ok) {
         throw new Error("아이템 목록을 불러오지 못했습니다.");
@@ -27,6 +57,7 @@ export default function ItemList() {
 
       return response.json();
     },
+    placeholderData: keepPreviousData,
   });
 
   const normalizedKeyword = keyword.trim().toLowerCase();
@@ -79,31 +110,19 @@ export default function ItemList() {
         <CreateItemDialog />
       </div>
 
-      <ul className="flex flex-col gap-2.5">
-        {filteredRows?.map((item) => {
-          return (
-            <li key={item.id} className="flex gap-2.5">
-              <Link href={`/items/${item.id}`} className="flex gap-2.5">
-                <span>{item.name}</span>
-                <span>{item.category}</span>
-                <span>{formatNumber(item.price)}원</span>
-              </Link>
-              <Button
-                type="button"
-                onClick={(e) => {
-                  deleteMutation.mutate(item.id);
-                }}
-                disabled={deleteMutation.isPending}
-              >
-                [삭제]
-              </Button>
-              <Link href={`/items/${item.id}`} className="flex gap-2.5">
-                <span> → </span>
-              </Link>
-            </li>
-          );
-        })}
-      </ul>
+      <ItemTable
+        data={filteredRows ?? []}
+        onDelete={(id) => deleteMutation.mutate(id)}
+        isDeleting={deleteMutation.isPending}
+        pagination={pagination}
+        onPaginationChange={setPagination}
+        sorting={sorting}
+        onSortingChange={(updater) => {
+          setSorting(updater);
+          setPagination((current) => ({ ...current, pageIndex: 0 }));
+        }}
+        pageCount={Math.ceil((data?.total ?? 0) / pagination.pageSize)}
+      />
     </div>
   );
 }
