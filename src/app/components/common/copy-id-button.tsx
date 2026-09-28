@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import { useState } from "react";
 
 type CopyIdButtonProps = {
@@ -20,9 +21,9 @@ export default function CopyIdButton({ id }: CopyIdButtonProps) {
 
   return (
     <div>
-      <button onClick={handleClick} className="border border-black px-1.5 py-1">
+      <Button type="button" variant="outline" size="sm" onClick={handleClick}>
         ID 복사
-      </button>
+      </Button>
       {isCopied && <span className="ml-2">복사됨!</span>}
     </div>
   );
