@@ -90,7 +90,7 @@ export default function ItemList() {
                 type="button"
                 variant="destructive"
                 size="sm"
-                onClick={(e) => {
+                onClick={() => {
                   deleteMutation.mutate(item.id);
                 }}
                 disabled={deleteMutation.isPending}
