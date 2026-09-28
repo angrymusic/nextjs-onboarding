@@ -18,7 +18,7 @@ export default function CreateItemDialog() {
           + 새 아이템
         </Button>
       </DialogTrigger>
-      <DialogContent className="w-full max-w-md rounded-lg border bg-white p-6 shadow-lg">
+      <DialogContent>
         <DialogTitle className="mb-4 text-lg font-semibold">
           새 아이템 추가
         </DialogTitle>

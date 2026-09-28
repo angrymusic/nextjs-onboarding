@@ -19,7 +19,13 @@ function ItemCategoryTabs() {
       {categories.map((item) => {
         const isActive = category === item;
         return (
-          <Button key={item} type="button" onClick={() => setCategory(item)}>
+          <Button
+            key={item}
+            type="button"
+            aria-pressed={isActive}
+            className={isActive ? "bg-black text-white" : "bg-white text-black"}
+            onClick={() => setCategory(item)}
+          >
             {item === "all" ? "전체" : item}
           </Button>
         );

@@ -41,7 +41,10 @@ type CreateItemFormProps = {
   onCancel?: () => void;
 };
 
-export default function CreateItemForm({ onSuccess, onCancel }: CreateItemFormProps) {
+export default function CreateItemForm({
+  onSuccess,
+  onCancel,
+}: CreateItemFormProps) {
   const queryClient = useQueryClient();
 
   const [name, setName] = useState("");
@@ -120,10 +123,6 @@ export default function CreateItemForm({ onSuccess, onCancel }: CreateItemFormPr
             required
           />
         </div>
-
-        {createMutation.isError && (
-          <p className="text-sm text-red-600">{createMutation.error.message}</p>
-        )}
 
         <div className="flex justify-end gap-2 pt-2">
           <Button
