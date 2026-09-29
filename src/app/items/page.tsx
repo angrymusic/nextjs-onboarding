@@ -1,6 +1,6 @@
-import CreateItemDialog from "../components/items/create-item-dialog";
-import ItemFilterBar from "../components/items/item-filter-bar";
-import ItemList from "../components/items/item-list";
+import CreateItemDialog from "@/components/items/create-item-dialog";
+import ItemFilterBar from "@/components/items/item-filter-bar";
+import ItemList from "@/components/items/item-list";
 
 export default function ItemsPage() {
   return (

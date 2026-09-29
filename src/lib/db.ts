@@ -40,9 +40,20 @@ export const db = {
     pageSize?: number;
     sort?: keyof Item;
     desc?: boolean;
+    category?: Item["category"] | "all";
   }) {
-    const { page = 1, pageSize = 10, sort, desc = false } = opts ?? {};
-    const rows = [...items];
+    const {
+      page = 1,
+      pageSize = 10,
+      sort,
+      desc = false,
+      category = "all",
+    } = opts ?? {};
+    const filteredRows =
+      category === "all"
+        ? [...items]
+        : items.filter((item) => item.category === category);
+    const rows = [...filteredRows];
     if (sort) {
       rows.sort((a, b) => (a[sort] < b[sort] ? -1 : a[sort] > b[sort] ? 1 : 0));
       if (desc) rows.reverse();
@@ -50,7 +61,7 @@ export const db = {
     const start = (page - 1) * pageSize;
     return {
       rows: rows.slice(start, start + pageSize),
-      total: items.length,
+      total: filteredRows.length,
       page,
       pageSize,
     };
