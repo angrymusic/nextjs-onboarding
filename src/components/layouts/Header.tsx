@@ -7,6 +7,7 @@ export default function Header() {
         <div>GNB</div>
         <Link href="/items">Items</Link>
         <Link href="/about">About</Link>
+        <Link href="/feedback">Feedback</Link>
       </nav>
     </header>
   );

@@ -9,9 +9,16 @@ export type Item = {
   createdAt: string;
 };
 
+export type Feedback = {
+  name: string;
+  content: string;
+  createdAt: string;
+};
+
 type DbState = {
   seq: number;
   items: Item[];
+  feedbacks: Feedback[];
 };
 
 const globalDb = globalThis as typeof globalThis & {
@@ -20,6 +27,7 @@ const globalDb = globalThis as typeof globalThis & {
 
 const dbState = (globalDb.__nextjsOnboardingDb ??= {
   seq: 21,
+  feedbacks: [],
   items: Array.from({ length: 20 }, (_, i) => ({
     id: i + 1,
     name: `아이템 ${i + 1}`,
@@ -28,11 +36,21 @@ const dbState = (globalDb.__nextjsOnboardingDb ??= {
     createdAt: new Date(Date.now() - i * 86400_000).toISOString(),
   })),
 });
+dbState.feedbacks ??= [];
 
 const { items } = dbState;
 
 // 로딩/에러 상태 UI를 눈으로 확인할 수 있게 인위적 지연
 export const delay = (ms = 500) => new Promise((r) => setTimeout(r, ms));
+
+export function addFeedback(data: Pick<Feedback, "name" | "content">) {
+  const feedback: Feedback = {
+    ...data,
+    createdAt: new Date().toISOString(),
+  };
+  dbState.feedbacks.push(feedback);
+  return feedback;
+}
 
 export const db = {
   list(opts?: {
