@@ -10,7 +10,7 @@ import {
   useQueryClient,
 } from "@tanstack/react-query";
 import type { PaginationState, SortingState } from "@tanstack/react-table";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 type ItemsResponse = {
   rows: Item[];
@@ -96,7 +96,7 @@ export default function ItemList() {
     }
   }
 
-  const deleteMutation = useMutation({
+  const { mutate: mutateDelete, isPending: isDeleting } = useMutation({
     mutationFn: deleteItem,
     onSuccess: async () => {
       await queryClient.invalidateQueries({
@@ -104,6 +104,10 @@ export default function ItemList() {
       });
     },
   });
+  const handleDelete = useCallback(
+    (id: number) => mutateDelete(id),
+    [mutateDelete],
+  );
 
   if (isPending) {
     return <p>불러오는 중...</p>;
@@ -122,13 +126,13 @@ export default function ItemList() {
     <div>
       <div className="flex items-center gap-2.5 pb-2.5">
         <span className="pb-2.5">아이템 목록 </span>
-        {deleteMutation.isPending && <span>(삭제중...)</span>}
+        {isDeleting && <span>(삭제중...)</span>}
       </div>
 
       <ItemTable
         data={filteredRows ?? []}
-        onDelete={(id) => deleteMutation.mutate(id)}
-        isDeleting={deleteMutation.isPending}
+        onDelete={handleDelete}
+        isDeleting={isDeleting}
         pagination={pagination}
         onPaginationChange={setPagination}
         sorting={sorting}
