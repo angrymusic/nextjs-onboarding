@@ -1,5 +1,5 @@
-import Modal from "@/app/components/common/modal";
-import InfoSummary from "@/app/components/items/info-summary";
+import Modal from "@/components/common/modal";
+import InfoSummary from "@/components/items/info-summary";
 import { db } from "@/lib/db";
 import { notFound } from "next/navigation";
 

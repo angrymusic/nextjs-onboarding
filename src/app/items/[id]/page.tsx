@@ -1,6 +1,6 @@
-import CopyIdButton from "@/app/components/common/copy-id-button";
-import DetailTabs from "@/app/components/common/detail-tabs";
-import Info from "@/app/components/items/info";
+import CopyIdButton from "@/components/common/copy-id-button";
+import DetailTabs from "@/components/common/detail-tabs";
+import Info from "@/components/items/info";
 import { db } from "@/lib/db";
 import Link from "next/link";
 import { notFound } from "next/navigation";
