@@ -21,7 +21,13 @@ export default function FeedbackForm() {
     <form action={formAction} className="flex flex-col gap-5">
       <div className="flex flex-col gap-2">
         <Label htmlFor="name">이름</Label>
-        <Input id="name" name="name" autoComplete="name" required />
+        <Input
+          id="name"
+          name="name"
+          autoComplete="name"
+          maxLength={50}
+          required
+        />
       </div>
 
       <div className="flex flex-col gap-2">
@@ -29,6 +35,8 @@ export default function FeedbackForm() {
         <textarea
           id="content"
           name="content"
+          minLength={5}
+          maxLength={1000}
           required
           rows={5}
           className="w-full resize-y rounded-lg border border-input bg-transparent px-3 py-2 text-sm outline-none placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50"
