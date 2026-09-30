@@ -52,6 +52,12 @@ export function addFeedback(data: Pick<Feedback, "name" | "content">) {
   return feedback;
 }
 
+export function listFeedbacks() {
+  return [...dbState.feedbacks].sort((a, b) =>
+    b.createdAt.localeCompare(a.createdAt),
+  );
+}
+
 export const db = {
   list(opts?: {
     page?: number;
